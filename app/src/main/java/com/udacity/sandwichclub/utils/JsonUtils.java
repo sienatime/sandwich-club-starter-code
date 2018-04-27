@@ -12,6 +12,8 @@ import java.util.jar.Attributes;
 
 public class JsonUtils {
 
+  // referenced https://developer.android.com/reference/android/util/JsonReader
+
   public static Sandwich parseSandwichJson(String json) throws IOException {
     JsonReader reader = new JsonReader(new StringReader(json));
     try {
