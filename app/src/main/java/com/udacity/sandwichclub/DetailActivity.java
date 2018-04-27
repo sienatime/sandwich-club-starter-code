@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,6 +59,7 @@ public class DetailActivity extends AppCompatActivity {
         populateUI(sandwich);
         Picasso.with(this)
                 .load(sandwich.getImage())
+                .error(R.drawable.ic_broken_image_black_24dp)
                 .into(ingredientsIv);
 
         setTitle(sandwich.getMainName());
@@ -69,14 +71,29 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI(Sandwich sandwich) {
-      TextView alsoKnownAs = findViewById(R.id.also_known_tv);
-      TextView placeOfOrigin = findViewById(R.id.origin_tv);
+      setTextViewOrHide(
+          findViewById(R.id.also_known_label),
+          findViewById(R.id.also_known_tv),
+          TextUtils.join(", ", sandwich.getAlsoKnownAs())
+      );
+      setTextViewOrHide(
+          findViewById(R.id.origin_label),
+          findViewById(R.id.origin_tv),
+          sandwich.getPlaceOfOrigin()
+      );
+
       TextView description = findViewById(R.id.description_tv);
       TextView ingredients = findViewById(R.id.ingredients_tv);
-
-      alsoKnownAs.setText(TextUtils.join(", ", sandwich.getAlsoKnownAs()));
-      placeOfOrigin.setText(sandwich.getPlaceOfOrigin());
       description.setText(sandwich.getDescription());
       ingredients.setText(TextUtils.join(", ", sandwich.getIngredients()));
+    }
+
+    private void setTextViewOrHide(View labelTv, View valueTv, String value) {
+      if (!value.equals("")) {
+        ((TextView) valueTv).setText(value);
+      } else {
+        valueTv.setVisibility(View.GONE);
+        labelTv.setVisibility(View.GONE);
+      }
     }
 }

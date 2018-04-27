@@ -21,6 +21,7 @@
         />
 
     <TextView
+        android:id="@+id/also_known_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/detail_also_known_as_label"
@@ -35,6 +36,7 @@
         />
 
     <TextView
+        android:id="@+id/origin_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/detail_place_of_origin_label"
